@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // sample data for list view
 const data = [
@@ -41,18 +42,96 @@ class ContactPage extends StatelessWidget {
     required String username,
     required String phone,
   }) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(
-          username[0],
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            bottom: 16,
+            right: 16,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      height: 42,
+                      width: 42,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.amber,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        username[0],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "$username wlmlw lkwmkw wlmklw wlkmwklmlkw mlkwmlkwm wlkmwkmkw wlmwkl",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            phone,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.edit,
+              ),
+            ],
+          ),
         ),
-      ),
-      title: Text(
-        username,
-      ),
-      subtitle: Text(
-        phone,
-      ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            bottom: 16,
+            right: 16,
+          ),
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: CircleAvatar(
+              child: Text(
+                username[0],
+              ),
+            ),
+            title: Text(
+              "$username alkmaklma lakmkama amlkakla amlkalkaaklmalkalakmka",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: Text(
+              phone,
+            ),
+            trailing: const Icon(
+              Icons.edit,
+            ),
+          ),
+        ),
+        Container(
+          height: 100,
+          width: 50,
+          color: Colors.red,
+          child: Text(
+            "$username alkmaklma lakmkama amlkakla amlkalkaaklmalkalakmka asjksajasnjka a",
+            maxLines: 3,
+          ),
+        )
+      ],
     );
   }
 }
