@@ -24,23 +24,8 @@ class FormContactPage extends StatefulWidget {
 }
 
 class _FormContactPageState extends State<FormContactPage> {
-  String _name = "";
   TextEditingController nameConteroller = TextEditingController();
-  String? _errorName;
-  String? _errorPhone;
-
-  String _phone = "";
   TextEditingController phoneController = TextEditingController();
-
-  String? languange;
-
-  // function boolean dari hasil _name, _phone, _errorName, errorPhone
-  bool validationLogin() {
-    return _name != "" &&
-        _phone != "" &&
-        _errorName == null &&
-        _errorPhone == null;
-  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -72,75 +57,63 @@ class _FormContactPageState extends State<FormContactPage> {
               TextFormFieldCustome(
                 hintText: 'Username',
                 controller: nameConteroller,
-                onChanged: (String value) {
-                  _name = value;
-                  if (_name.isEmpty) {
-                    _errorName = 'Username tidak boleh kosong';
-                  } else if (_name.length < 2) {
-                    _errorName = 'Username harus lebih dari 2 huruf';
-                  } else {
-                    _errorName = null;
+                validator: (value) {
+                  if (value?.isEmpty == true) {
+                    return 'Username tidak boleh kosong';
+                  } else if ((value?.length ?? 0) < 2) {
+                    return 'Username harus lebih dari 2 huruf';
                   }
-                  setState(() {});
+                  return null;
                 },
-                errorText: _errorName,
               ),
               const SizedBox(height: 24),
               TextFormFieldCustome(
                 hintText: 'Phone',
-                onChanged: (String value) {
-                  _phone = value;
-                  if (_phone.isEmpty) {
-                    _errorPhone = 'Nomor Telepon Tidak Boleh Kosong';
-                  } else if (_phone.length < 8) {
-                    _errorPhone = 'Nomor Telepon harus lebih 8 huruf';
-                  } else {
-                    _errorPhone = null;
+                validator: (value) {
+                  if (value?.isEmpty == true) {
+                    return 'Nomor Telepon Tidak Boleh Kosong';
+                  } else if ((value?.length ?? 0) < 8) {
+                    return 'Nomor Telepon harus lebih dari 8 huruf';
                   }
 
-                  setState(() {});
+                  return null;
                 },
-                errorText: _errorPhone,
                 isValidInputForPhone: true,
                 controller: phoneController,
               ),
               const SizedBox(height: 24),
               InkWell(
-                onTap: validationLogin()
-                    ? () {
-                        listKontakModel.add(
-                          KontakModel(
-                            username: _name,
-                            phone: _phone,
-                          ),
-                        );
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    listKontakModel.add(
+                      KontakModel(
+                        username: nameConteroller.text,
+                        phone: phoneController.text,
+                      ),
+                    );
 
-                        _name = "";
-                        _phone = "";
-                        nameConteroller.clear();
-                        phoneController.clear();
+                    nameConteroller.clear();
+                    phoneController.clear();
+                  }
 
-                        setState(() {});
-                      }
-                    : null,
+                  setState(() {});
+                },
                 child: Container(
                   width: double.infinity,
                   height: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
                       Radius.circular(
                         100,
                       ),
                     ),
-                    color: validationLogin()
-                        ? const Color(
-                            0xFF45DFC3,
-                          )
-                        : Colors.grey,
+                    color: Color(
+                      0xFF45DFC3,
+                    ),
                   ),
                   alignment: Alignment.center,
                   child: const Text(
-                    'Add',
+                    'Add Pake Form',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
