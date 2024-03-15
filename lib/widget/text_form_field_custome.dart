@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFormFieldCustome extends StatelessWidget {
   final String hintText;
@@ -8,6 +9,8 @@ class TextFormFieldCustome extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   final TextEditingController? controller;
   final String? errorText;
+  final bool isValidInputForPhone;
+  final String? Function(String?)? validator;
   const TextFormFieldCustome({
     super.key,
     required this.hintText,
@@ -17,6 +20,8 @@ class TextFormFieldCustome extends StatelessWidget {
     this.onFieldSubmitted,
     this.controller,
     this.errorText,
+    this.isValidInputForPhone = false,
+    this.validator,
   });
 
   @override
@@ -30,6 +35,12 @@ class TextFormFieldCustome extends StatelessWidget {
       ),
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
+      validator: validator,
+      inputFormatters: [
+        if (isValidInputForPhone) ...[
+          FilteringTextInputFormatter.digitsOnly,
+        ]
+      ],
       decoration: InputDecoration(
         errorText: errorText,
         hintText: hintText,
