@@ -32,7 +32,7 @@ class _FormContactPageState extends State<FormContactPage> {
   String _phone = "";
   TextEditingController phoneController = TextEditingController();
 
-  String? languange;
+  int _selectIndex = -1;
 
   // function boolean dari hasil _name, _phone, _errorName, errorPhone
   bool validationLogin() {
@@ -47,11 +47,20 @@ class _FormContactPageState extends State<FormContactPage> {
   // BUAT OBJECT LIST UNTUK MENAMPILKAN USER CONTACT
   List<KontakModel> listKontakModel = [];
 
+  bool isUpdateContact = false;
+
   @override
   void dispose() {
     phoneController.dispose();
     nameConteroller.dispose();
     super.dispose();
+  }
+
+  void _resetVariable() {
+    _name = "";
+    _phone = "";
+    nameConteroller.clear();
+    phoneController.clear();
   }
 
   @override
@@ -108,17 +117,24 @@ class _FormContactPageState extends State<FormContactPage> {
               InkWell(
                 onTap: validationLogin()
                     ? () {
-                        listKontakModel.add(
-                          KontakModel(
+                        if (isUpdateContact == true) {
+                          // PERINTAH UNTUK UPDATE
+                          listKontakModel[_selectIndex] = KontakModel(
                             username: _name,
                             phone: _phone,
-                          ),
-                        );
-
-                        _name = "";
-                        _phone = "";
-                        nameConteroller.clear();
-                        phoneController.clear();
+                          );
+                          _resetVariable();
+                          _selectIndex = -1;
+                          isUpdateContact = false;
+                        } else {
+                          listKontakModel.add(
+                            KontakModel(
+                              username: _name,
+                              phone: _phone,
+                            ),
+                          );
+                          _resetVariable();
+                        }
 
                         setState(() {});
                       }
@@ -139,9 +155,9 @@ class _FormContactPageState extends State<FormContactPage> {
                         : Colors.grey,
                   ),
                   alignment: Alignment.center,
-                  child: const Text(
-                    'Add',
-                    style: TextStyle(
+                  child: Text(
+                    isUpdateContact == true ? 'Update' : 'Add',
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -178,6 +194,20 @@ class _FormContactPageState extends State<FormContactPage> {
                               right: 16,
                             ),
                             child: ListTile(
+                              onTap: () {
+                                isUpdateContact = true;
+                                nameConteroller.text =
+                                    listKontakModel[index].username;
+                                phoneController.text =
+                                    listKontakModel[index].phone;
+                                _name = listKontakModel[index].username;
+                                _phone = listKontakModel[index].phone;
+                                _errorName = null;
+                                _errorPhone = null;
+                                _selectIndex = index;
+
+                                setState(() {});
+                              },
                               contentPadding: EdgeInsets.zero,
                               leading: CircleAvatar(
                                 child: Text(

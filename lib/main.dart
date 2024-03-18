@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/belajar_form_page.dart';
 import 'package:flutter_application_2/form_contact_page.dart';
+import 'package:flutter_application_2/page/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const FormContactPage(),
+      home: const SplashPage(),
     );
   }
 }
