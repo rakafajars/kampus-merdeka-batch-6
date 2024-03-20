@@ -21,7 +21,13 @@ class TextStyleConstant {
     color: ColorConstant.blackColor2,
   );
 
-    static TextStyle interSemiBold = GoogleFonts.inter(
+  static TextStyle interMedium = GoogleFonts.inter(
+    fontSize: 9,
+    fontWeight: FontWeight.w500,
+    color: ColorConstant.greyColor2,
+  );
+
+  static TextStyle interSemiBold = GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: ColorConstant.whiteColor,

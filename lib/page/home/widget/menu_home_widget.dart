@@ -22,7 +22,7 @@ class MenuHomeWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               16,
             ),
-            color: ColorConstant.whiteColor
+            color: ColorConstant.whiteColor,
           ),
           child: Icon(
             iconsData,
