@@ -10,6 +10,7 @@ class TopDoctorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         title: Text(
           'Top Doctor',

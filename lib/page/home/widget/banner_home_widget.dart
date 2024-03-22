@@ -9,19 +9,14 @@ class BannerHomeWidget extends StatelessWidget {
       width: double.infinity,
       height: 135,
       decoration: BoxDecoration(
-        color: Colors.amber,
         borderRadius: BorderRadius.circular(
           12,
         ),
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFF3366FF),
-            Color(0xFF00CCFF),
-          ],
-          begin: FractionalOffset(0.0, 0.0),
-          end: FractionalOffset(1.0, 0.0),
-          stops: [0.0, 1.0],
-          tileMode: TileMode.clamp,
+        image: const DecorationImage(
+          image: NetworkImage(
+            'https://img.freepik.com/free-vector/gradient-dental-clinic-sale-banner_23-2149666471.jpg?size=626&ext=jpg&ga=GA1.1.1803636316.1701302400&semt=ais',
+          ),
+          fit: BoxFit.cover,
         ),
       ),
     );
