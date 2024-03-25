@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/constant/color_constant.dart';
 import 'package:flutter_application_2/constant/text_style_constant.dart';
+import 'package:flutter_application_2/gen/assets.gen.dart';
 
 class GlobalIconLogo extends StatelessWidget {
   final Color? colorIcon;
@@ -22,15 +22,15 @@ class GlobalIconLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.health_and_safety,
-          size: sizeIcon ?? 129,
-          color: colorIcon ?? ColorConstant.whiteColor,
+        Assets.image.logoPng.image(
+          height: sizeIcon ?? 129,
+          width: sizeIcon ?? 129,
+          color: colorIcon,
         ),
         Text(
           'Medics',
           style: TextStyleConstant.montSerratBold.copyWith(
-            fontSize:sizeText ?? 50,
+            fontSize: sizeText ?? 50,
             color: colorTextStyle,
           ),
         )

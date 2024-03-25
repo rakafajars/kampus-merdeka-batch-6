@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/constant/color_constant.dart';
 import 'package:flutter_application_2/constant/text_style_constant.dart';
+import 'package:flutter_application_2/gen/fonts.gen.dart';
 import 'package:flutter_application_2/page/home/home_page.dart';
 import 'package:flutter_application_2/widget/button_global_widget.dart';
 import 'package:flutter_application_2/widget/global_icon_logo_widget.dart';
@@ -27,6 +28,14 @@ class OnBoardingPage extends StatelessWidget {
           Text(
             'Let’s get started!',
             style: TextStyleConstant.interBold,
+          ),
+          const Text(
+            'Let’s get started!',
+            style: TextStyle(
+              fontFamily: FontFamily.poppins,
+              fontWeight: FontWeight.w900,
+              fontStyle: FontStyle.italic,
+            ),
           ),
           const SizedBox(height: 9),
           Text(

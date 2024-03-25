@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/balajar_color_picker.dart';
 import 'package:flutter_application_2/belajar_file_picker.dart';
 import 'package:flutter_application_2/belajar_image_picker.dart';
+import 'package:flutter_application_2/page/splash_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Color currentColor = Colors.orange;
@@ -37,7 +38,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       darkTheme: ThemeData.dark(), // standard dark theme
       themeMode: _themeMode,
-      home: const BelajarImagePicker(),
+
+      home: const SplashPage(),
     );
   }
 

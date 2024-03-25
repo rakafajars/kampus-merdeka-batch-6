@@ -13,25 +13,10 @@ class BelajarImagePicker extends StatefulWidget {
 }
 
 class _BelajarImagePickerState extends State<BelajarImagePicker> {
-  // final ImagePicker picker = ImagePicker();
 
   XFile? xFile;
 
-  // void openCameraGallery({
-  //   required bool isCamera,
-  // }) async {
-  //   final result = await picker.pickImage(
-  //     source: isCamera ? ImageSource.camera : ImageSource.gallery,
-  //   );
 
-  //   if (result == null) {
-  //     return;
-  //   }
-
-  //   xFile = result;
-
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {

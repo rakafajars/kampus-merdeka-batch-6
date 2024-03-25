@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/constant/text_style_constant.dart';
 import 'package:flutter_application_2/page/on_boarding_page.dart';
 import 'package:flutter_application_2/widget/global_icon_logo_widget.dart';
 import '../constant/color_constant.dart';
