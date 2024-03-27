@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/balajar_color_picker.dart';
 import 'package:flutter_application_2/belajar_file_picker.dart';
 import 'package:flutter_application_2/belajar_image_picker.dart';
+import 'package:flutter_application_2/constant/name_routes.dart';
 import 'package:flutter_application_2/gen/fonts.gen.dart';
 import 'package:flutter_application_2/page/splash_page.dart';
+import 'package:flutter_application_2/page/task_management/create_task_management.dart';
+import 'package:flutter_application_2/page/task_management/detail_task_management.dart';
 import 'package:flutter_application_2/page/task_management/home_task_management.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -43,7 +46,13 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: FontFamily.poppins,
       ),
-      home: const HomeTaskManagement(),
+      // home: const HomeTaskManagement(),
+      initialRoute: NameRoutes.initRoute,
+      routes: {
+        NameRoutes.initRoute: (context) => const HomeTaskManagement(),
+        NameRoutes.createTaskPage: (context) => const CreateTaskManagement(),
+        NameRoutes.detailTaskPage: (context) => const DetailTaskManagement(),
+      },
     );
   }
 

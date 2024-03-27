@@ -3,6 +3,8 @@ import 'package:flutter_application_2/constant/color_constant.dart';
 import 'package:flutter_application_2/constant/text_style_constant.dart';
 import 'package:flutter_application_2/page/home/widget/distance_doctor_widget.dart';
 import 'package:flutter_application_2/page/home/widget/start_doctor_rating_widget.dart';
+import 'package:flutter_application_2/page/on_boarding_page.dart';
+import 'package:flutter_application_2/page/splash_page.dart';
 
 class TopDoctorPage extends StatelessWidget {
   const TopDoctorPage({super.key});
@@ -21,7 +23,14 @@ class TopDoctorPage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OnBoardingPage(),
+                  ),
+                  (route) => false);
+            },
             icon: Icon(
               Icons.menu,
               color: ColorConstant.blackColor1,

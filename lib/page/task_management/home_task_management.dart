@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_2/constant/gallery_image_picker_constant.dart';
+import 'package:flutter_application_2/constant/name_routes.dart';
 import 'package:flutter_application_2/model/task_model.dart';
+import 'package:flutter_application_2/page/task_management/create_task_management.dart';
 import 'package:flutter_application_2/page/task_management/empty_task_management.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -25,6 +27,14 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
     setState(() {});
   }
 
+  void updateTask({
+    required TaskModel value,
+    required int index,
+  }) {
+    taskModel[index] = value;
+    setState(() {});
+  }
+
   void deleteTask(int index) {
     taskModel.removeAt(index);
     Navigator.pop(context);
@@ -36,14 +46,6 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     setState(() {});
-  }
-
-  TextEditingController _formTaskController = TextEditingController();
-
-  @override
-  void dispose() {
-    _formTaskController.dispose();
-    super.dispose();
   }
 
   @override
@@ -130,6 +132,14 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
                               ),
                             ),
                           ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Save',
+                          ),
                         )
                       ],
                     ),
@@ -145,58 +155,69 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
       ),
       body: buildScreen(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text(
-                  'Input Task',
-                ),
-                content: TextFormField(
-                  controller: _formTaskController,
-                  decoration: const InputDecoration(
-                    hintText: 'Masukan Kegiatan Hari Ini',
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Cancel',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // tambahkan kondisi empty apabila form masih kosong
-                      // tapi user klik button
-                      if (_formTaskController.text.isNotEmpty) {
-                        addTask(TaskModel(
-                          id: const Uuid().v1(),
-                          taskName: _formTaskController.text,
-                        ));
-                        Navigator.pop(context);
-                        _formTaskController.clear();
-                      } else {
-                        const snackBar = SnackBar(
-                          content: Text(
-                            'Field Tidak Boleh Kosong!',
-                          ),
-                        );
-
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    },
-                    child: const Text(
-                      'Save',
-                    ),
-                  ),
-                ],
-              );
-            },
+        onPressed: () async {
+          final result = await Navigator.pushNamed(
+            context,
+            NameRoutes.createTaskPage,
           );
+
+          if (result != null) {
+            TaskModel resultModel = result as TaskModel;
+
+            addTask(resultModel);
+          }
+
+          // showDialog(
+          //   context: context,
+          //   builder: (context) {
+          //     return AlertDialog(
+          //       title: const Text(
+          //         'Input Task',
+          //       ),
+          //       content: TextFormField(
+          //         controller: _formTaskController,
+          //         decoration: const InputDecoration(
+          //           hintText: 'Masukan Kegiatan Hari Ini',
+          //         ),
+          //       ),
+          //       actions: [
+          //         TextButton(
+          //           onPressed: () {
+          //             Navigator.pop(context);
+          //           },
+          //           child: const Text(
+          //             'Cancel',
+          //           ),
+          //         ),
+          //         TextButton(
+          //           onPressed: () {
+          //             // tambahkan kondisi empty apabila form masih kosong
+          //             // tapi user klik button
+          //             if (_formTaskController.text.isNotEmpty) {
+          //               addTask(TaskModel(
+          //                 id: const Uuid().v1(),
+          //                 taskName: _formTaskController.text,
+          //               ));
+          //               Navigator.pop(context);
+          //               _formTaskController.clear();
+          //             } else {
+          //               const snackBar = SnackBar(
+          //                 content: Text(
+          //                   'Field Tidak Boleh Kosong!',
+          //                 ),
+          //               );
+
+          //               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //             }
+          //           },
+          //           child: const Text(
+          //             'Save',
+          //           ),
+          //         ),
+          //       ],
+          //     );
+          //   },
+          // );
         },
         child: const Icon(
           Icons.add,
@@ -214,6 +235,25 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
           return Container(
             color: Colors.amber,
             child: ListTile(
+              onTap: () async {
+                final result = await Navigator.pushNamed(
+                  context,
+                  NameRoutes.createTaskPage,
+                  arguments: CreateTaskArguments(
+                    isEdit: true,
+                    taskModel: taskModel[index],
+                  ),
+                );
+
+                if (result != null) {
+                  TaskModel resultModel = result as TaskModel;
+
+                  updateTask(
+                    index: index,
+                    value: resultModel,
+                  );
+                }
+              },
               title: Text(
                 taskModel[index].taskName,
               ),
