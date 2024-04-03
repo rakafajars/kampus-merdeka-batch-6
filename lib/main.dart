@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/balajar_color_picker.dart';
-import 'package:flutter_application_2/belajar_file_picker.dart';
-import 'package:flutter_application_2/belajar_image_picker.dart';
 import 'package:flutter_application_2/constant/name_routes.dart';
 import 'package:flutter_application_2/gen/fonts.gen.dart';
-import 'package:flutter_application_2/page/splash_page.dart';
-import 'package:flutter_application_2/page/task_management/create_task_management.dart';
-import 'package:flutter_application_2/page/task_management/detail_task_management.dart';
-import 'package:flutter_application_2/page/task_management/home_task_management.dart';
+import 'package:flutter_application_2/page/contact/archive_contact_page.dart';
+import 'package:flutter_application_2/page/contact/create_edit_contact_page.dart';
+import 'package:flutter_application_2/page/contact/home_contact_page.dart';
+import 'package:flutter_application_2/page/contact_with_provider/archive_contact_with_provider_page.dart';
+import 'package:flutter_application_2/page/contact_with_provider/contact_provider.dart';
+import 'package:flutter_application_2/page/contact_with_provider/contact_with_provider_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 
 Color currentColor = Colors.orange;
 Color? selectedPicker;
@@ -39,20 +39,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      darkTheme: ThemeData.dark(), // standard dark theme
-      themeMode: _themeMode,
-      theme: ThemeData(
-        fontFamily: FontFamily.poppins,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ContactProvider>(
+          create: (_) => ContactProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        darkTheme: ThemeData.dark(), // standard dark theme
+        themeMode: _themeMode,
+        theme: ThemeData(
+          fontFamily: FontFamily.poppins,
+        ),
+        initialRoute: NameRoutes.initRoute,
+        routes: {
+          NameRoutes.initRoute: (context) => const ContactWithProviderPage(),
+          NameRoutes.archivePageRoute: (context) => const ArchiveContactWithProviderPage(),
+          NameRoutes.createEditPageRoute: (context) =>
+              const CreateEditContactPage(),
+        },
       ),
-      // home: const HomeTaskManagement(),
-      initialRoute: NameRoutes.initRoute,
-      routes: {
-        NameRoutes.initRoute: (context) => const HomeTaskManagement(),
-        NameRoutes.createTaskPage: (context) => const CreateTaskManagement(),
-        NameRoutes.detailTaskPage: (context) => const DetailTaskManagement(),
-      },
     );
   }
 

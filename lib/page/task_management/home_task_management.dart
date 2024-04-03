@@ -156,16 +156,8 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
       body: buildScreen(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final result = await Navigator.pushNamed(
-            context,
-            NameRoutes.createTaskPage,
-          );
+       
 
-          if (result != null) {
-            TaskModel resultModel = result as TaskModel;
-
-            addTask(resultModel);
-          }
 
           // showDialog(
           //   context: context,
@@ -236,23 +228,9 @@ class _HomeTaskManagementState extends State<HomeTaskManagement> {
             color: Colors.amber,
             child: ListTile(
               onTap: () async {
-                final result = await Navigator.pushNamed(
-                  context,
-                  NameRoutes.createTaskPage,
-                  arguments: CreateTaskArguments(
-                    isEdit: true,
-                    taskModel: taskModel[index],
-                  ),
-                );
+               
 
-                if (result != null) {
-                  TaskModel resultModel = result as TaskModel;
-
-                  updateTask(
-                    index: index,
-                    value: resultModel,
-                  );
-                }
+              
               },
               title: Text(
                 taskModel[index].taskName,

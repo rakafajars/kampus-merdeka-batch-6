@@ -1,5 +1,5 @@
 class NameRoutes {
   static String initRoute = "/";
-  static String createTaskPage = '/create';
-  static String detailTaskPage = '/detail';
+  static String archivePageRoute = "/archivePage";
+  static String createEditPageRoute = "/createEditPage";
 }
